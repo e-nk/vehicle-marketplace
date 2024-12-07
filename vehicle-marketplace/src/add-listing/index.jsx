@@ -12,12 +12,24 @@ import { useState } from 'react'
 import { CarListing } from './../../configs/schema'
 import { db } from './../../configs'
 import IconField from './components/IconField'
+import UploadImages from './components/UploadImages'
+import { BiLoaderAlt } from "react-icons/bi";
+import { toast } from "sonner"
+import { useNavigate } from 'react-router-dom'
+import { useUser } from "@clerk/clerk-react";
+import moment from "moment"
+
+
 
 
 function AddListing() {
 
 	const [formData, setFormData] =useState([]);
 	const [featuresData, setFeaturesData] = useState([]);
+	const [triggerUploadImages, setTriggerUploadImages] = useState();
+	const [loader, setLoader] = useState(false);
+	const navigate=useNavigate();
+	const {user}=useUser();
 
 	/**
 	 * used to capture user input from form
@@ -48,21 +60,30 @@ function AddListing() {
 		console.log(featuresData);
 	}
 	const onSubmit = async (e) => {  // Add async here
+		setLoader(true);
     e.preventDefault();
     console.log(formData);
+		toast('Please Wait...')
 
     try {
         const result = await db.insert(CarListing).values({
 					...formData,
-					features: featuresData// Join selected features to save in the database
-				});  // Await needs an async function
+					features: featuresData,
+					createdBy:user?.primaryEmailAddress?.emailAddress,
+					postedOn: moment().format('DD/MM/yyyy')
+
+				}).returning({id:CarListing.id});  // Await needs an async function
         if (result) {
             console.log("Data saved successfully");
+						setTriggerUploadImages(result[0]?.id)
+						setLoader(false);
         }
     } catch (e) {
         console.error("Error saving data: ", e);
     }
 };
+
+
 
 
 
@@ -107,14 +128,21 @@ function AddListing() {
 					</div>
 
 
-					{/* car details */}
-
-
-
+					{/* car images */}
+					<Separator className='my-6'/>
+					<UploadImages triggerUploadImages={triggerUploadImages}
+					setLoader={(v)=>{setLoader(v);navigate('/profile')}}/>
 					<div className='mt-10 flex justify-end'>
-						<Button type="submit" onClick={(e)=>onSubmit(e)}>Submit</Button>
+						<Button type="submit" 
+						disabled={loader}
+						onClick={(e)=>onSubmit(e)}>
+							{!loader?'Submit':<BiLoaderAlt className='animate-spin text-lg' />
+							}
+							
+							</Button>
 					</div>
 				</form>
+				
 			</div>
 		</div>
 	)
