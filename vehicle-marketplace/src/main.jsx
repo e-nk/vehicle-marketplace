@@ -5,9 +5,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './home'
 import Contact from './contact'
 import { ClerkProvider } from '@clerk/clerk-react';
-import Profile from './components/profile'
+// import Profile from './components/profile'
 import AddListing from './add-listing'
 import { Toaster } from "@/components/ui/sonner"
+import Profile from './profile/'
 
 export default function RootLayout({ children }) {
   return (
