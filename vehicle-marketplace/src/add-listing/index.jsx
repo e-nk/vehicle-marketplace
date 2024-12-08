@@ -188,6 +188,8 @@ function AddListing() {
 					{/* car images */}
 					<Separator className='my-6'/>
 					<UploadImages triggerUploadImages={triggerUploadImages}
+					carInfo={carInfo} 
+					mode={mode}
 					setLoader={(v)=>{setLoader(v);navigate('/profile')}}/>
 					<div className='mt-10 flex justify-end'>
 						<Button type="submit" 
