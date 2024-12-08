@@ -4,7 +4,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './home'
 import Contact from './contact'
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider, SignIn, ClerkLoaded  } from '@clerk/clerk-react';
 // import Profile from './components/profile'
 import AddListing from './add-listing'
 import { Toaster } from "@/components/ui/sonner"
@@ -44,7 +44,15 @@ const router=createBrowserRouter([
 		path:'/add-listing',
     element:<AddListing/>
 
-	}
+	},
+	{
+    path: '/sign-in',
+    element: (
+      <ClerkLoaded>
+        <SignIn />
+      </ClerkLoaded>
+    ),
+  },
 
 
 ])
