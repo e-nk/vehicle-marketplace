@@ -10,6 +10,7 @@ import AddListing from './add-listing'
 import { Toaster } from "@/components/ui/sonner"
 import Profile from './profile/'
 import SearchByCategory from './search/[category]'
+import SearchByOptions from './search/index'
 
 export default function RootLayout({ children }) {
   return (
@@ -53,6 +54,10 @@ const router=createBrowserRouter([
         <SignIn />
       </ClerkLoaded>
     ),
+  },
+	{
+		path: '/search/',
+    element:<SearchByOptions/>
   },
 	{
 		path: '/search/:category',
