@@ -13,7 +13,7 @@ function SearchByCategory() {
 
 	const {category}=useParams();
 	const [carList,setCarList]=useState([]);
-	console.log(category);
+	
 
 	useEffect(()=>{
     GetCarList()
@@ -26,7 +26,7 @@ function SearchByCategory() {
 
 		const resp=FormatResult(result);
 		setCarList(resp);
-		console.log(resp);
+		
 
 	}
 
@@ -43,12 +43,18 @@ function SearchByCategory() {
 
 				{/*list cars*/}
 				<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-7'>
-					{carList.map((item,index) => (
+					{carList?.length>0? carList.map((item,index) => (
 						<div key={index}>
 							<CarItem car={item}/>
 
 						</div>
-					))}
+					)):
+					[1,2,3,4,5,6].map((item,index) =>(
+						<div className='h-[320px] rounded-xl bg-slate-200 animate-pulse'>
+
+						</div>
+					))
+					}
 				</div>
 			</div>
 
