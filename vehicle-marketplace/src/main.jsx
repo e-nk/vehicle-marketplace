@@ -9,6 +9,7 @@ import { ClerkProvider, SignIn, ClerkLoaded  } from '@clerk/clerk-react';
 import AddListing from './add-listing'
 import { Toaster } from "@/components/ui/sonner"
 import Profile from './profile/'
+import SearchByCategory from './search/[category]'
 
 export default function RootLayout({ children }) {
   return (
@@ -52,6 +53,10 @@ const router=createBrowserRouter([
         <SignIn />
       </ClerkLoaded>
     ),
+  },
+	{
+		path: '/search/:category',
+    element:<SearchByCategory/>
   },
 
 
