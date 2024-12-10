@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import Search from '@/components/Search';
 import CarItem from '@/components/CarItem';
+import Service from '@/Shared/Service'
 
 function SearchByOptions() {
 	const [searchParams]=useSearchParams();
@@ -26,7 +27,7 @@ function SearchByOptions() {
 		.where(make!=undefined&&eq(CarListing.make,make))
 		.where(price!=undefined&&eq(CarListing.price,price))
 
-		const resp=FormatResult(result);
+		const resp=Service.FormatResult(result);
 		console.log(resp);
 		setCarList(resp);
 	}

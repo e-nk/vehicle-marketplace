@@ -2,14 +2,18 @@ import { Button } from '@/components/ui/button'
 import Service from '@/Shared/Service'
 import { useUser } from '@clerk/clerk-react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function OwnersDetail({carDetail}) {
 
 	const {user}=useUser();
+	const navigation =useNavigate();
 	const OnMessageOwnerButtonClick= async()=>{
+		const userId=user.primaryEmailAddress?.emailAddress.split('@')[0];
+		const ownerUserId=carDetail?.createdBy.split('@')[0];
 		//create current user id
 		try{
-			const userId=user.primaryEmailAddress?.emailAddress.split('@')[0];
+			
 			await Service.CreateSendBirdUser(userId, user?.fullName,user?.imageUrl)
 			.then(resp=>{
 				console.log(resp);
@@ -18,15 +22,25 @@ function OwnersDetail({carDetail}) {
 
 		//owner user id
 		try{
-			const ownerUserId=carDetail?.createdBy.split('@')[0];
-      await Service.CreateSendBirdUser(ownerUserId, carDetail?.createdBy,carDetail?.userImageUrl)
-      .then(resp=>{
-        console.log(resp);
-      })
+      await Service.CreateSendBirdUser(ownerUserId, carDetail?.userName,carDetail?.userImageUrl)
+			.then(resp=>{
+				console.log(resp);
+			})
+      
 		}catch(e){}
 
 
 		//chanel id
+		try{
+      await Service.CreateSendBirdChannel([userId,ownerUserId],carDetail?.listingTitle)
+      .then(resp=>{
+        console.log(resp);
+				console.log('chanel created');
+				navigation('/profile');
+      })
+    }catch(e){}
+
+    //send message
 
 
 	}

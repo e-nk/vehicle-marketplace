@@ -7,6 +7,7 @@ import { CarImages, CarListing } from './../../../configs/schema';
 import { eq } from 'drizzle-orm';
 import FormatResult from '@/Shared/Service';
 import CarItem from '@/components/CarItem';
+import Service from '@/Shared/Service'
 
 function SearchByCategory() {
 
@@ -24,7 +25,7 @@ function SearchByCategory() {
 		.innerJoin(CarImages,eq(CarListing.id,CarImages.carListingId))
 		.where(eq(CarListing.category,category))
 
-		const resp=FormatResult(result);
+		const resp=Service.FormatResult(result);
 		setCarList(resp);
 		
 
