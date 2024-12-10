@@ -15,6 +15,7 @@ import OwnersDetail from './components/OwnersDetail';
 import Footer from '@/components/Footer';
 import FinancialCalculator from './components/FinancialCalculator';
 import MostSearchedCar from '@/components/MostSearchedCar';
+import Service from '@/Shared/Service'
 
 function ListingDetail() {
 	const {id}=useParams();
@@ -32,7 +33,7 @@ function ListingDetail() {
 		.innerJoin(CarImages,eq(CarListing.id,CarImages.carListingId))
 		.where(eq(CarListing.id,id));
 
-		const resp = FormatResult(result);
+		const resp =Service.FormatResult(result);
 		setCarDetail(resp[0]);
 	}
 

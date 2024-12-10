@@ -10,7 +10,7 @@ import {
 import { CarImages, CarListing } from './../../configs/schema'
 import { db } from './../../configs'
 import { desc, eq } from 'drizzle-orm'
-import Service from './Shared/Service'
+import Service from '@/Shared/Service'
 
 function MostSearchedCar() {
 	// console.log(FakeData.carList)
@@ -28,8 +28,8 @@ function MostSearchedCar() {
 		.limit(10)
 
 
-		const resp= Service.FormatResult(result)
-		console.log(result);
+		const resp=Service.FormatResult(result)
+		console.log(resp);
 		setCarList(resp);
 	}
 	return (
