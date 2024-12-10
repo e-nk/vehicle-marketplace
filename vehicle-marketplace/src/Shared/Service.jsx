@@ -33,17 +33,46 @@
 // export default FormatResult;
 
 
+// const FormatResult = (resp) => {
+//   const groupedResults = {};
+
+//   resp.forEach((item) => {
+//     const carListingId = item.carListing?.id; // Extract the carListing ID safely
+//     if (!carListingId) return; // Skip if `carListing` is missing
+
+//     if (!groupedResults[carListingId]) {
+//       groupedResults[carListingId] = {
+//         ...item.carListing,
+//         images: [],
+//       };
+//     }
+
+//     if (item.carImages?.imageUrl) {
+//       groupedResults[carListingId].images.push(item.carImages.imageUrl);
+//     }
+//   });
+
+//   const finalResult = Object.values(groupedResults);
+
+//   console.log('Grouped Results:', groupedResults);
+//   console.log('Final formatted result:', finalResult);
+
+//   return finalResult;
+// };
+
+// export default FormatResult;
+
 const FormatResult = (resp) => {
   const groupedResults = {};
 
   resp.forEach((item) => {
-    const carListingId = item.carListing?.id; // Extract the carListing ID safely
-    if (!carListingId) return; // Skip if `carListing` is missing
+    const carListingId = item.carListing?.id;
+    if (!carListingId) return;
 
     if (!groupedResults[carListingId]) {
       groupedResults[carListingId] = {
         ...item.carListing,
-        images: [],
+        images: []
       };
     }
 
@@ -53,11 +82,7 @@ const FormatResult = (resp) => {
   });
 
   const finalResult = Object.values(groupedResults);
-
-  console.log('Grouped Results:', groupedResults);
-  console.log('Final formatted result:', finalResult);
-
+  console.log("Processed data with images:", finalResult);
   return finalResult;
 };
-
 export default FormatResult;
