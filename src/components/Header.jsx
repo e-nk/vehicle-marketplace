@@ -2,7 +2,7 @@ import React from 'react'
 import { UserButton,useUser } from '@clerk/clerk-react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
-import Image from "next/image";
+
 
 
 
@@ -10,7 +10,7 @@ function Header() {
 	const {user, isSignedIn}=useUser();
 	return (
 		<div className='flex justify-between items-center shadow-sm p-5'>
-			<Image src="/logo.svg" width={150} height={100}/>
+			<img src="/logo.svg" width={150} height={100} alt="Logo" />
 			{/* <img src='./logo.svg' width={150} height={100} /> */}
 
 			<ul className='hidden md:flex gap-16'>
